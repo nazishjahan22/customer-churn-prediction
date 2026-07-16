@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-glow glow-1"></div>
+    <div class="background-glow glow-2"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="app-title">Customer Churn Prediction</h1>
+            <p class="app-subtitle">Leverage advanced machine learning to predict customer retention and identify churn risks instantly.</p>
+        </header>
+
+        <!-- Main Card Grid -->
+        <main class="main-content">
+            
+            <!-- Result Panel (Shown dynamically or at the top when predicted) -->
+            <div id="resultCard" class="result-card hidden">
+                <div class="result-header">
+                    <span class="result-badge" id="resultBadge">Result</span>
+                    <button type="button" id="closeResultBtn" class="close-btn" aria-label="Close Result">&times;</button>
+                </div>
+                <div class="result-body">
+                    <h3 id="resultTitle">Prediction Result</h3>
+                    <p id="resultText" class="prediction-text">Customer Will Not Churn</p>
+                    
+                    <div class="probability-container">
+                        <span class="probability-label">Churn Probability:</span>
+                        <span id="probabilityVal" class="probability-val">29%</span>
+                        <div class="progress-bar-bg">
+                            <div id="probabilityBar" class="progress-bar-fill" style="width: 29%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error message container -->
+            <div id="errorMessage" class="error-banner hidden">
+                <span class="error-icon">⚠️</span>
+                <span id="errorText">Error connecting to the machine learning server. Please ensure the backend is running.</span>
+            </div>
+
+            <!-- Form Card -->
+            <div class="prediction-card">
+                <form id="churnForm" novalidate>
+                    
+                    <!-- Section 1: Customer Profile -->
+                    <div class="form-section">
+                        <div class="section-title-wrapper">
+                            <span class="section-number">01</span>
+                            <h2 class="section-title">Customer Demographics</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <!-- Gender -->
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="" disabled selected>Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                <span class="validation-msg">Please select gender</span>
+                            </div>
+
+                            <!-- Senior Citizen -->
+                            <div class="form-group">
+                                <label for="SeniorCitizen">Senior Citizen</label>
+                                <select id="SeniorCitizen" name="SeniorCitizen" required>
+                                    <option value="" disabled selected>Is Senior Citizen?</option>
+                                    <option value="0">No (Under 65)</option>
+                                    <option value="1">Yes (65 or Older)</option>
+                                </select>
+                                <span class="validation-msg">Please select senior citizen status</span>
+                            </div>
+
+                            <!-- Partner -->
+                            <div class="form-group">
+                                <label for="Partner">Has Partner?</label>
+                                <select id="Partner" name="Partner" required>
+                                    <option value="" disabled selected>Has partner?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                <span class="validation-msg">Please select partner status</span>
+                            </div>
+
+                            <!-- Dependents -->
+                            <div class="form-group">
+                                <label for="Dependents">Has Dependents?</label>
+                                <select id="Dependents" name="Dependents" required>
+                                    <option value="" disabled selected>Has dependents?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                <span class="validation-msg">Please select dependents status</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Services Subscribed -->
+                    <div class="form-section">
+                        <div class="section-title-wrapper">
+                            <span class="section-number">02</span>
+                            <h2 class="section-title">Subscribed Services</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <!-- Phone Service -->
+                            <div class="form-group">
+                                <label for="PhoneService">Phone Service</label>
+                                <select id="PhoneService" name="PhoneService" required>
+                                    <option value="" disabled selected>Select phone service</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                <span class="validation-msg">Please select phone service</span>
+                            </div>
+
+                            <!-- Multiple Lines -->
+                            <div class="form-group">
+                                <label for="MultipleLines">Multiple Lines</label>
+                                <select id="MultipleLines" name="MultipleLines" required>
+                                    <option value="" disabled selected>Select option</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No phone service">No phone service</option>
+                                </select>
+                                <span class="validation-msg">Please select multiple lines option</span>
+                            </div>
+
+                            <!-- Internet Service -->
+                            <div class="form-group">
+                                <label for="InternetService">Internet Service Provider</label>
+                                <select id="InternetService" name="InternetService" required>
+                                    <option value="" disabled selected>Select provider</option>
+                                    <option value="DSL">DSL</option>
+                                    <option value="Fiber optic">Fiber optic</option>
+                                    <option value="No">No Internet</option>
+                                </select>
+                                <span class="validation-msg">Please select internet service</span>
+                            </div>
+
+                            <!-- Online Security -->
+                            <div class="form-group">
+                                <label for="OnlineSecurity">Online Security</label>
+                                <select id="OnlineSecurity" name="OnlineSecurity" required>
+                                    <option value="" disabled selected>Select option</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                                <span class="validation-msg">Please select online security option</span>
+                            </div>
+
+                            <!-- Online Backup -->
+                            <div class="form-group">
+                                <label for="OnlineBackup">Online Backup</label>
+                                <select id="OnlineBackup" name="OnlineBackup" required>
+                                    <option value="" disabled selected>Select option</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                                <span class="validation-msg">Please select online backup option</span>
+                            </div>
+
+                            <!-- Device Protection -->
+                            <div class="form-group">
+                                <label for="DeviceProtection">Device Protection</label>
+                                <select id="DeviceProtection" name="DeviceProtection" required>
+                                    <option value="" disabled selected>Select option</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                                <span class="validation-msg">Please select device protection option</span>
+                            </div>
+
+                            <!-- Tech Support -->
+                            <div class="form-group">
+                                <label for="TechSupport">Tech Support</label>
+                                <select id="TechSupport" name="TechSupport" required>
+                                    <option value="" disabled selected>Select option</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                                <span class="validation-msg">Please select tech support option</span>
+                            </div>
+
+                            <!-- Streaming TV -->
+                            <div class="form-group">
+                                <label for="StreamingTV">Streaming TV</label>
+                                <select id="StreamingTV" name="StreamingTV" required>
+                                    <option value="" disabled selected>Select option</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                                <span class="validation-msg">Please select streaming TV option</span>
+                            </div>
+
+                            <!-- Streaming Movies -->
+                            <div class="form-group">
+                                <label for="StreamingMovies">Streaming Movies</label>
+                                <select id="StreamingMovies" name="StreamingMovies" required>
+                                    <option value="" disabled selected>Select option</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                                <span class="validation-msg">Please select streaming movies option</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Billing & Contract Details -->
+                    <div class="form-section">
+                        <div class="section-title-wrapper">
+                            <span class="section-number">03</span>
+                            <h2 class="section-title">Contract & Billing</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <!-- Contract -->
+                            <div class="form-group">
+                                <label for="Contract">Contract Term</label>
+                                <select id="Contract" name="Contract" required>
+                                    <option value="" disabled selected>Select term</option>
+                                    <option value="Month-to-month">Month-to-month</option>
+                                    <option value="One year">One year</option>
+                                    <option value="Two year">Two year</option>
+                                </select>
+                                <span class="validation-msg">Please select contract term</span>
+                            </div>
+
+                            <!-- Paperless Billing -->
+                            <div class="form-group">
+                                <label for="PaperlessBilling">Paperless Billing</label>
+                                <select id="PaperlessBilling" name="PaperlessBilling" required>
+                                    <option value="" disabled selected>Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                <span class="validation-msg">Please select paperless billing status</span>
+                            </div>
+
+                            <!-- Payment Method -->
+                            <div class="form-group">
+                                <label for="PaymentMethod">Payment Method</label>
+                                <select id="PaymentMethod" name="PaymentMethod" required>
+                                    <option value="" disabled selected>Select method</option>
+                                    <option value="Electronic check">Electronic check</option>
+                                    <option value="Mailed check">Mailed check</option>
+                                    <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                                    <option value="Credit card (automatic)">Credit card (automatic)</option>
+                                </select>
+                                <span class="validation-msg">Please select payment method</span>
+                            </div>
+
+                            <!-- Tenure -->
+                            <div class="form-group">
+                                <label for="tenure">Tenure (months)</label>
+                                <input type="number" id="tenure" name="tenure" min="0" max="100" placeholder="e.g. 12" required>
+                                <span class="validation-msg">Enter a valid number (0 - 100)</span>
+                            </div>
+
+                            <!-- Monthly Charges -->
+                            <div class="form-group">
+                                <label for="MonthlyCharges">Monthly Charges ($)</label>
+                                <input type="number" id="MonthlyCharges" name="MonthlyCharges" min="0" step="0.01" placeholder="e.g. 54.85" required>
+                                <span class="validation-msg">Enter a valid non-negative number</span>
+                            </div>
+
+                            <!-- Total Charges -->
+                            <div class="form-group">
+                                <label for="TotalCharges">Total Charges ($)</label>
+                                <input type="number" id="TotalCharges" name="TotalCharges" min="0" step="0.01" placeholder="e.g. 658.20" required>
+                                <span class="validation-msg">Enter a valid non-negative number</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="button" id="resetBtn" class="btn btn-secondary">
+                            Reset Form
+                        </button>
+                        <button type="submit" id="submitBtn" class="btn btn-primary">
+                            <span class="btn-text">Predict Churn Risk</span>
+                            <span class="spinner hidden"></span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Customer Churn Prediction System</p>
+            <p class="footer-subtext">Developed using Machine Learning + FastAPI</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
