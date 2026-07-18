@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Constants
     // TODO: Replace the production URL with your actual deployed Render service URL if different
-    const PRODUCTION_API_URL = "https://customer-churn-backend.onrender.com/predict";
+
+    const PRODUCTION_API_URL = "https://customer-churn-prediction-ojum.onrender.com/predict";
     const API_URL = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")
         ? "http://127.0.0.1:8001/predict"
         : PRODUCTION_API_URL;
