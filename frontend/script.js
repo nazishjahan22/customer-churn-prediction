@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resetBtn.addEventListener("click", () => {
         // Clear all inputs/selects in the form
         form.reset();
-        
+
         // Remove validation error stylings
         const formGroups = document.querySelectorAll(".form-group");
         formGroups.forEach(group => {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             // Log details for debugging
             console.error("Prediction Error:", error);
-            
+
             // Show user-friendly error message
             errorText.textContent = "Unable to connect to the machine learning server. Please ensure that the FastAPI backend is running on port 8001.";
             errorMessage.classList.remove("hidden");
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Format prediction text and percentage
         resultText.textContent = data.prediction;
-        
+
         // Probability range [0.0 - 1.0]. Convert to percentage.
         const probabilityPercentage = Math.round(data.probability * 100);
         probabilityVal.textContent = `${probabilityPercentage}%`;
